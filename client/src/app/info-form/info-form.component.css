@@ -1,0 +1,14 @@
+form #buttonContainer {
+    width: 100% ;
+    display: flex ;
+    align-items: center ;
+    justify-content: center ;
+}
+
+form #buttonContainer button{
+    justify-self: center ;
+}
+
+form .form-group input{
+    width: 45%;
+}
