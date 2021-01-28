@@ -74,9 +74,12 @@ export function validate(nombre: string, email: string, telefono: string, fecha:
     }
 
     /* validacion para fecha*/
-    fecha = fecha == null? "": fecha.trim();
+    fecha = fecha == null? "": fecha.toString().trim();
     if(fecha==""){
-        validState.errors.push("El campo Fecha debe ser llenado");
+        validState.errors.push("El campo Fecha es requerido");
+        validState.fecha = false;
+    } else if (fecha=="Invalid Date"){
+        validState.errors.push("El campo Fecha tiene un valor no válido");
         validState.fecha = false;
     } else {
         validState.fecha = true;

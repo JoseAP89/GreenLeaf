@@ -12,3 +12,7 @@ form #buttonContainer button{
 form .form-group input{
     width: 45%;
 }
+
+form #inputDate {
+    width: 90%;
+}
