@@ -1,1 +1,1 @@
-declare var indexFunc:any;
+declare var Validation:any;
