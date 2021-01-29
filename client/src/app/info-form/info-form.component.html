@@ -29,7 +29,7 @@
           [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }">
       </div>
       <div class="col-sm-2 ml-0 pl-0">
-        <button class="btn btn-success" (click)="datepickerYMD.toggle()" [attr.aria-expanded]="datepickerYMD.isOpen" type="button">Date Picker</button>
+        <img src="../../assets/img/calendar.png"  class="calendar-icon img-fluid" alt="calendar" (click)="datepickerYMD.toggle()" [attr.aria-expanded]="datepickerYMD.isOpen">
       </div>
     </div>
     <div class="form-group row">
@@ -42,3 +42,22 @@
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
 </form>
+
+<!-- mymodel -->
+<button type="button" id="modalError" hidden class="btn btn-primary" (click)="openModal(template)">Create template modal</button>
+     
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ul>
+      <li *ngFor="let err of errors">{{err}}</li>
+    </ul>
+  </div>
+</ng-template>
+
+

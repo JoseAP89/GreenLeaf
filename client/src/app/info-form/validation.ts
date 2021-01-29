@@ -7,7 +7,7 @@ export function validate(nombre: string, email: string, telefono: string, fecha:
         fecha : boolean,
         ciudad : boolean,
         errors :  string[]
-        isValid: any
+        isValid: Function
     }
 
     let validState: IState = {
@@ -17,7 +17,7 @@ export function validate(nombre: string, email: string, telefono: string, fecha:
         fecha : false,
         ciudad : false,
         errors :  [],
-        isValid: function() {
+        isValid: function() :boolean {
             return this.nombre && this.email && this.telefono &&
                 this.fecha && this.ciudad;
         }
@@ -74,12 +74,29 @@ export function validate(nombre: string, email: string, telefono: string, fecha:
     }
 
     /* validacion para fecha*/
+    // 1 year has 365.2422 days according to https://pumas.nasa.gov/files/04_21_97_1.pdf
+    const milisecsPerHundred = 24 * 3600 * 365.2422 * 100 * 1000;
+    let dtNow_ = new Date();
+    let dtNow = new Date(dtNow_.getFullYear(), dtNow_.getMonth(), dtNow_.getDate(),0,0,0,0).getTime();
+    let dtOneHundred = dtNow + milisecsPerHundred;
+    console.log(new Date(dtOneHundred));
+
     fecha = fecha == null? "": fecha.toString().trim();
+    let fechaArr = fecha.split("-");
+    let dtSelected = 0;
+    if (fecha!="" && fecha!= "Invalid Date") {
+        // YY-MM-DD
+        dtSelected = new Date(Number(fechaArr[2]),Number(fechaArr[1])-1,Number(fechaArr[0])).getTime();
+    }
+
     if(fecha==""){
         validState.errors.push("El campo Fecha es requerido");
         validState.fecha = false;
     } else if (fecha=="Invalid Date"){
         validState.errors.push("El campo Fecha tiene un valor no válido");
+        validState.fecha = false;
+    } else if( dtSelected > dtOneHundred || dtSelected < dtNow  ){
+        validState.errors.push("El campo Fecha tiene un valor fuera del rango desde hoy a 100 años");
         validState.fecha = false;
     } else {
         validState.fecha = true;
@@ -98,6 +115,6 @@ export function validate(nombre: string, email: string, telefono: string, fecha:
     }
 
     console.log("in validState",validState);
-    return validState.isValid();
+    return { isValid: validState.isValid(), errors: validState.errors};
 }
 

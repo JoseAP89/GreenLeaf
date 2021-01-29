@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { esLocale } from 'ngx-bootstrap/locale';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { validate } from './validation';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'app-info-form',
@@ -13,11 +14,13 @@ import { validate } from './validation';
 
 export class InfoFormComponent implements OnInit {
 
-    isValid: boolean;
-    infoForm: FormGroup; 
-
-    constructor(private formBuilder: FormBuilder, private localeService: BsLocaleService ) {
-        this.isValid = false;
+    infoForm: FormGroup;
+    docObject: any;
+    errors: string[]; 
+    modalRef: any;
+   
+    constructor(private formBuilder: FormBuilder, private localeService: BsLocaleService,
+        private modalService: BsModalService) {
         this.infoForm = this.formBuilder.group({
             nombre: null,
             email: null,
@@ -25,15 +28,22 @@ export class InfoFormComponent implements OnInit {
             fecha: null,
             ciudad: null
         }); 
+        this.errors = [],
         defineLocale('es', esLocale);
         this.localeService.use("es");
+        this.docObject = null;
     }
 
     ngOnInit(): void {
     }
 
+    openModal(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template);
+    }
+
     onSubmit(): void {
         // Process checkout data here
+        this.docObject = document.getElementById("modalError");
         let date = this.infoForm.value.fecha;
         console.log("date = ",date);
         console.log("date == Invalid Date ",date=="Invalid Date");
@@ -43,13 +53,18 @@ export class InfoFormComponent implements OnInit {
         }
 
         console.log('Your order has been submitted', this.infoForm.value);
-        console.log('Is valid?', validate(
-            this.infoForm.value.nombre,
-            this.infoForm.value.email,
+        let { isValid, errors} = validate(this.infoForm.value.nombre, this.infoForm.value.email, 
             this.infoForm.value.telefono,
             this.infoForm.value.fecha,
             this.infoForm.value.ciudad
-        ));
-        this.infoForm.reset();
+        );
+        this.errors = errors;
+        if(isValid) {
+            this.infoForm.reset();
+            console.log("Message sent");
+
+        } else {
+            this.docObject.click();
+        }
     }
 }

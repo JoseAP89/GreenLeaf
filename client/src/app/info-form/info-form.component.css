@@ -16,3 +16,8 @@ form .form-group input{
 form #inputDate {
     width: 90%;
 }
+
+form .calendar-icon {
+    width: 34px;
+    cursor: pointer;
+}

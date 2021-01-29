@@ -1,4 +1,4 @@
-.box {
+.box_ {
     margin-top: 30px;
     margin-bottom: 55px;
     background: rgb(100,217,72);
@@ -17,32 +17,32 @@
     justify-content: center;
 }
 
-.box span{
+.box_ div{
     display:inline-block ;
-    width: 40%;
+    width: 50%;
     font-size: 53px;
 }
 
-.box span::first-letter {
+.box_ div::first-letter {
     font-size: 150%;
 }
 
-.box img {
+.box_ img {
     width: 70px;
 }
 
-.wrapper {
+.wrapper_ {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     grid-auto-rows: minmax(100px, auto);
 }
-.left {
+.left_ {
     grid-column: 1 / 4;
     grid-row: 1;
     justify-self: center;
 }
-.right {
+.right_ {
     grid-column: 4 / 5;
     grid-row: 1 ;
     align-self: end;
