@@ -18,6 +18,8 @@ export class InfoFormComponent implements OnInit {
     docObject: any;
     errors: string[]; 
     modalRef: any;
+    isValid: boolean;
+    today: Date;
    
     constructor(private formBuilder: FormBuilder, private localeService: BsLocaleService,
         private modalService: BsModalService) {
@@ -32,6 +34,8 @@ export class InfoFormComponent implements OnInit {
         defineLocale('es', esLocale);
         this.localeService.use("es");
         this.docObject = null;
+        this.isValid = false;
+        this.today = new Date();
     }
 
     ngOnInit(): void {
@@ -59,10 +63,9 @@ export class InfoFormComponent implements OnInit {
             this.infoForm.value.ciudad
         );
         this.errors = errors;
+        this.isValid = isValid;
         if(isValid) {
-            this.infoForm.reset();
             console.log("Message sent");
-
         } else {
             this.docObject.click();
         }

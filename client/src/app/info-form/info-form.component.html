@@ -1,63 +1,84 @@
-<form [formGroup]="infoForm" (ngSubmit)="onSubmit()">
-    <div class="form-group row">
-      <label for="inputName" class="col-sm-2 col-form-label">Nombre</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputName" placeholder="Nombre" formControlName="nombre">
+<div *ngIf="!isValid">
+  <form [formGroup]="infoForm" (ngSubmit)="onSubmit()">
+      <div class="form-group row">
+        <label for="inputName" class="col-sm-2 col-form-label">Nombre</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputName" placeholder="Nombre" formControlName="nombre">
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="inputEmail" placeholder="Email" formControlName="email">
+      <div class="form-group row">
+        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="inputEmail" placeholder="Email" formControlName="email">
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="inputPhone" class="col-sm-2 col-form-label">Teléfono</label>
-      <div class="col-sm-10">
-        <input type="tel" class="form-control" id="inputPhone" placeholder="Teléfono" formControlName="telefono">
+      <div class="form-group row">
+        <label for="inputPhone" class="col-sm-2 col-form-label">Teléfono</label>
+        <div class="col-sm-10">
+          <input type="tel" class="form-control" id="inputPhone" placeholder="Teléfono" formControlName="telefono">
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="inputDate" class="col-sm-2 col-form-label">Fecha</label>
-      <div class="col-sm-5 pr-0">
-        <input id="inputDate"
-          class="form-control"
-          #datepickerYMD="bsDatepicker"
-          bsDatepicker
-          formControlName="fecha"
-          [(ngModel)]="infoForm.value.fecha"
-          [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }">
+      <div class="form-group row">
+        <label for="inputDate" class="col-sm-2 col-form-label">Fecha</label>
+        <div class="col-sm-5 pr-0">
+          <input id="inputDate"
+            class="form-control"
+            #datepickerYMD="bsDatepicker"
+            bsDatepicker
+            formControlName="fecha"
+            [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }">
+        </div>
+        <div class="col-sm-2 ml-0 pl-0">
+          <img src="../../assets/img/calendar.png"  class="calendar-icon img-fluid" alt="calendar" (click)="datepickerYMD.toggle()" [attr.aria-expanded]="datepickerYMD.isOpen">
+        </div>
       </div>
-      <div class="col-sm-2 ml-0 pl-0">
-        <img src="../../assets/img/calendar.png"  class="calendar-icon img-fluid" alt="calendar" (click)="datepickerYMD.toggle()" [attr.aria-expanded]="datepickerYMD.isOpen">
+      <div class="form-group row">
+        <label for="inputCityState" class="col-sm-2 col-form-label">Ciudad y Estado</label>
+        <div class="col-sm-10">
+          <input type="text"  class="form-control" id="inputCityState" placeholder="Ciudad y Estado" formControlName="ciudad">
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="inputCityState" class="col-sm-2 col-form-label">Ciudad y Estado</label>
-      <div class="col-sm-10">
-        <input type="text"  class="form-control" id="inputCityState" placeholder="Ciudad y Estado" formControlName="ciudad">
+      <div id="buttonContainer" class="">
+          <button type="submit" class="btn btn-primary">Enviar</button>
       </div>
-    </div>
-    <div id="buttonContainer" class="">
-        <button type="submit" class="btn btn-primary">Enviar</button>
-    </div>
-</form>
+  </form>
 
-<!-- mymodel -->
-<button type="button" id="modalError" hidden class="btn btn-primary" (click)="openModal(template)">Create template modal</button>
-     
-<ng-template #template>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <ul>
-      <li *ngFor="let err of errors">{{err}}</li>
-    </ul>
-  </div>
-</ng-template>
+  <!-- mymodel -->
+  <button type="button" id="modalError" hidden class="btn btn-primary" (click)="openModal(template)">Create template modal</button>
+      
+  <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Modal</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <ul>
+        <li *ngFor="let err of errors">{{err}}</li>
+      </ul>
+    </div>
+  </ng-template>
+</div>
 
+<div *ngIf="isValid" id="confirmationMsg">
+  <div>
+    <p>Estimado  <strong>{{infoForm.value.nombre}}</strong>, </p><br>
+  </div>
+  <div>
+    <p>Hemos recibido sus datos y nos pondremos en contacto con usted en la
+      brevedad posible. Enviaremos un correo con información a su cuenta: <span class="emailText">{{infoForm.value.email}}</span> </p><br>
+  </div>
+  <div class="justify-content-end text-right">
+      <div>
+        Atte.<br>
+      </div>
+      <div>
+        <strong>Green Leaves</strong><br>
+      </div>
+      <div>
+        {{infoForm.value.ciudad}}, {{infoForm.value.ciudad}} a {{today | date : "dd/MMM/YYYY"}} <br>
+      </div>
+  </div>
+</div>
 

@@ -21,3 +21,9 @@ form .calendar-icon {
     width: 34px;
     cursor: pointer;
 }
+
+#confirmationMsg .emailText {
+    color: blue;
+    font-weight: bold;
+    font-style: italic;
+}
