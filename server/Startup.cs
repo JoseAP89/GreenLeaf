@@ -12,11 +12,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using server.Models;
+using Microsoft.Net.Http.Headers;
 
 namespace server
 {
     public class Startup
     {
+        readonly string MyPolicy = "_myPolicy";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,6 +29,18 @@ namespace server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+        {
+            options.AddPolicy(name: MyPolicy,
+                builder =>
+                {
+                    builder.WithOrigins(
+                            "http://localhost:4200",
+                            "https://localhost:5001")
+                        .AllowAnyHeader()
+                        .WithMethods("POST", "GET");
+                });
+            });
             services.AddHttpClient();
             services.AddDbContext<MessageContext>(opt =>
                opt.UseInMemoryDatabase("MessageList"));
@@ -44,7 +58,7 @@ namespace server
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors(MyPolicy);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -22,8 +22,32 @@ form .calendar-icon {
     cursor: pointer;
 }
 
+/* search city box */
+form #optionCities {
+    padding: 1px 5px 1px 5px;
+    border-color: gray;
+    background-color: #f2f2f2;
+    color: black;
+    overflow: auto;
+    width: 412px;
+    height: 200px;
+}
+
+form #optionCities p {
+    margin: 3px;
+    cursor: pointer;
+}
+
+form #optionCities p:hover {
+    color: #66a3ff;
+}
+
+form hr { 
+    margin: 2px;
+}
+
 #confirmationMsg .emailText {
-    color: blue;
+    color: #66a3ff;
     font-weight: bold;
     font-style: italic;
 }

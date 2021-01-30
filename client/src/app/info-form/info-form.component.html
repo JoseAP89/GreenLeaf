@@ -35,13 +35,21 @@
       <div class="form-group row">
         <label for="inputCityState" class="col-sm-2 col-form-label">Ciudad y Estado</label>
         <div class="col-sm-10">
-          <input type="text"  class="form-control" id="inputCityState" placeholder="Ciudad y Estado" formControlName="ciudad">
-        </div>
+          <input type="text" [(ngModel)]="search" (keyup)="getCities()" class="form-control" list="optionCities" 
+            id="inputCityState" placeholder="Ciudad y Estado" formControlName="ciudad" autocomplete="off" >
+          <!-- autocomplete from cities coming from the server -->
+          <div id="optionCities" *ngIf="cities.length > 0 && cityOptionsBox" [hidden]="cityOptionsBox? false: true">
+            <p (click)="turnBoxOff()"><small>Cerrar</small></p>
+            <hr>
+            <p *ngFor="let city of cities" (click)="selectCity(city)">{{city.toponymName}}, {{city.adminName1}}, {{city.countryName}}</p>
+          </div>
+          </div>
       </div>
       <div id="buttonContainer" class="">
           <button type="submit" class="btn btn-primary">Enviar</button>
       </div>
   </form>
+
 
   <!-- mymodel -->
   <button type="button" id="modalError" hidden class="btn btn-primary" (click)="openModal(template)">Create template modal</button>
@@ -77,7 +85,7 @@
         <strong>Green Leaves</strong><br>
       </div>
       <div>
-        {{infoForm.value.ciudad}}, {{infoForm.value.ciudad}} a {{today | date : "dd/MMM/YYYY"}} <br>
+        {{infoForm.value.ciudad}} a {{today | date : "dd/MMM/YYYY"}} <br>
       </div>
   </div>
 </div>

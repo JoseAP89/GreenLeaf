@@ -6,6 +6,8 @@ import { InfoFormComponent } from './info-form/info-form.component';
 import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
     FormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
