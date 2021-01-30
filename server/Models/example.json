@@ -1,0 +1,45 @@
+{
+    "totalResultsCount": 200,
+    "geonames": [
+        {
+            "adminCode1": "19",
+            "lng": "-100.31847",
+            "geonameId": 3995465,
+            "toponymName": "Monterrey",
+            "countryId": "3996063",
+            "fcl": "P",
+            "population": 1135512,
+            "countryCode": "MX",
+            "name": "Monterrey City",
+            "fclName": "city, village,...",
+            "adminCodes1": {
+                "ISO3166_2": "NLE"
+            },
+            "countryName": "México",
+            "fcodeName": "seat of a first-order administrative division",
+            "adminName1": "Nuevo León",
+            "lat": "25.67507",
+            "fcode": "PPLA"
+        },
+        {
+            "adminCode1": "19",
+            "lng": "-100.28394",
+            "geonameId": 8582459,
+            "toponymName": "Monterrey",
+            "countryId": "3996063",
+            "fcl": "A",
+            "population": 0,
+            "countryCode": "MX",
+            "name": "Monterrey",
+            "fclName": "country, state, region,...",
+            "adminCodes1": {
+                "ISO3166_2": "NLE"
+            },
+            "countryName": "México",
+            "fcodeName": "second-order administrative division",
+            "adminName1": "Nuevo León",
+            "lat": "25.57681",
+            "fcode": "ADM2"
+        }
+    ]
+}
