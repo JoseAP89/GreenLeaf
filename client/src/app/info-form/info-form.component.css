@@ -51,3 +51,9 @@ form hr {
     font-weight: bold;
     font-style: italic;
 }
+
+.modal-body .btnCloseModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
