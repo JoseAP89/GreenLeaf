@@ -25,6 +25,7 @@
             class="form-control"
             #datepickerYMD="bsDatepicker"
             bsDatepicker
+            autocomplete="off"
             formControlName="fecha"
             [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }">
         </div>
@@ -38,9 +39,10 @@
           <input type="text" [(ngModel)]="search" (keyup)="getCities()" class="form-control" list="optionCities" 
             id="inputCityState" placeholder="Ciudad y Estado" formControlName="ciudad" autocomplete="off" >
           <!-- autocomplete from cities coming from the server -->
-          <div id="optionCities" *ngIf="cities.length > 0 && cityOptionsBox" [hidden]="cityOptionsBox? false: true">
+          <div id="optionCities" *ngIf="cityOptionsBox" [hidden]="cityOptionsBox? false: true">
             <p (click)="turnBoxOff()"><small>Cerrar</small></p>
             <hr>
+            <p *ngIf="cities.length == 0">No hay resultados para esa búsqueda</p>
             <p *ngFor="let city of cities" (click)="selectCity(city)">{{city.toponymName}}, {{city.adminName1}}, {{city.countryName}}</p>
           </div>
           </div>

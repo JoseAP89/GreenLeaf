@@ -1,3 +1,5 @@
+using System;
+
 namespace server.Models
 {
     public class Message

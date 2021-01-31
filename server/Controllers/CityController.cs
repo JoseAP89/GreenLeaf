@@ -18,9 +18,6 @@ namespace server.Controllers
     {
         public GeoLocation Locations { get; private set; }
         private readonly IHttpClientFactory _clientFactory;
-        public bool GetLocationsError { get; private set; }
-
-
         public CityController(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
@@ -34,14 +31,10 @@ namespace server.Controllers
         public async Task<ActionResult<GeoLocation>> GetMessage(string search)
         {
             await OnGet(search);
-            if (Locations != null)
+            var geoNames = Locations?.GeoNames;
+            if (geoNames != null)
             {
-                foreach (var location in Locations.GeoNames)
-                {
-                    Console.WriteLine($"city: {location.ToponymName}");
-                    Console.WriteLine($"state: {location.AdminName1}");
-                    Console.WriteLine($"country: {location.CountryName}");
-                }
+                Locations.GeoNames = geoNames.Distinct().ToArray();
             }
             else
             {
@@ -67,7 +60,6 @@ namespace server.Controllers
             }
             else
             {
-                GetLocationsError = true;
                 Locations = null;
             }
         }

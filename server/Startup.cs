@@ -29,21 +29,25 @@ namespace server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var emailconfig = Configuration.GetSection("EmailConfigService")
+                .Get<EmailConfig>();
+            services.AddSingleton(emailconfig);
+            services.AddScoped<IEmailSender, EmailSender>();
             services.AddCors(options =>
-        {
-            options.AddPolicy(name: MyPolicy,
-                builder =>
-                {
-                    builder.WithOrigins(
-                            "http://localhost:4200",
-                            "https://localhost:5001")
-                        .AllowAnyHeader()
-                        .WithMethods("POST", "GET");
-                });
+            {
+                options.AddPolicy(name: MyPolicy,
+                    builder =>
+                    {
+                        builder.WithOrigins(
+                                "http://localhost:4200",
+                                "https://localhost:5001")
+                            .AllowAnyHeader()
+                            .WithMethods("POST", "GET");
+                    });
             });
             services.AddHttpClient();
             services.AddDbContext<MessageContext>(opt =>
-               opt.UseInMemoryDatabase("MessageList"));
+            opt.UseInMemoryDatabase("MessageList"));
             services.AddControllers();
         }
 
